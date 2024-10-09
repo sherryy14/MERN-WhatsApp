@@ -1,0 +1,41 @@
+<%- include('header.ejs') %>
+
+<body>
+    <div class="container my-4">
+        <a href="/chats/new" class="btn btn-primary">New Chat</a>
+        <h3 class="text-center">All Chats</h3>
+        <div class="row g-2">
+            <% chats.forEach(c=> {
+
+                let time24 = c.created_at.toString().split(" ")[4];
+                let [hour, minutes, seconds] = time24.split(":");
+
+                let period = hour >= 12 ? "PM" : "AM";
+                hour = hour % 12 || 12;
+
+                let time12 = `${hour}:${minutes}:${seconds} ${period}`;%>
+                <div class="col-md-4 border chats">
+                    <p class="user"><strong>From</strong>: <%= c.from %>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center msg">
+                        <p><strong>Message</strong>: <%= c.message %>
+                        </p>
+
+                    </div>
+                    <p class="user"><strong>Recevied By</strong>: <%= c.to %>
+                    </p>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="user">At: <%= time12 %> <%= c.created_at.toString().split(" ").slice(0,4).join(" ") %></p>
+                        <div>
+                            <a href="/chats/<%= c.id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="/chats/<%= c.id %>/delete" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this chat?');">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+
+</html>

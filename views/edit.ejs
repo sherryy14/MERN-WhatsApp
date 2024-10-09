@@ -1,0 +1,26 @@
+<%- include('header.ejs') %>
+
+<body>
+    <div class="container my-4">
+        <a href="/"  class="btn btn-primary">Back</a>
+        <h3 class="text-center">Edit Chat</h3>
+        <div class="row">
+            <p>This chat was from <strong><%= chat.from%></strong> to <strong><%= chat.to%></strong></p>
+            <form action="/chats/<%= chat.id%>?_method=PUT" method="POST">
+
+                <div class="row my-2">
+                    <div class="col-6">
+                        <input type="text" name="from" placeholder="From" class="form-control" value="<%= chat.from%>" required>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" name="to" placeholder="To" class="form-control" value="<%= chat.to%>" required>
+                    </div>
+                </div>
+                <textarea name="message" placeholder="Write your message here..."  class="form-control my-2" required><%= chat.message%></textarea>
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
